@@ -1,0 +1,36 @@
+from django.contrib.auth.models import User
+from django.db import models
+
+# Create your models here.
+
+class Country(models.Model):
+    name = models.CharField(max_length=100)
+
+class Buyer(User):
+    image = models.ImageField(upload_to="profile")
+    phone_number = models.CharField(max_length=20)
+    country = models.ForeignKey(Country, on_delete=models.PROTECT, null=True, blank=True)
+
+class Brand(models.Model):
+    name = models.CharField()
+    logo = models.ImageField()
+
+class Car(models.Model):
+    MANUAL = 0
+    AUTOMATIC = 1
+    TRANSMISSIONS = (
+        (MANUAL, "Manual"),
+        (AUTOMATIC, "Automatic")
+    )
+    overview = models.TextField()
+    horsepower = models.CharField(max_length=100)
+    price = models.FloatField()
+    model = models.CharField(max_length=100)
+    fuel = models.CharField(max_length=100)
+    quantity = models.IntegerField(default=1)
+    color = models.CharField(max_length=15)
+    transmission = models.IntegerField(choices=TRANSMISSIONS, default=AUTOMATIC)
+    year_of_manufacture = models.IntegerField()
+    brand = models.ForeignKey(Brand, on_delete=models.PROTECT, null=True, blank=True)
+
+##TODO: Favorites (Wishlists), Bids, Orders
