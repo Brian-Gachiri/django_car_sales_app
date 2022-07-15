@@ -19,7 +19,9 @@ from .views import *
 
 
 urlpatterns = [
-    path("", home, name="home")
+    path("", home, name="home"),
+    path("cars", CarView.as_view(), name="cars"),
+    path("brands", BrandView.as_view(), name="brands"),
 
 ]
 
