@@ -7,9 +7,10 @@ class Country(models.Model):
     name = models.CharField(max_length=100)
 
 class Buyer(User):
-    image = models.ImageField(upload_to="profile")
+    image = models.ImageField(upload_to="profile", null=True, blank=True)
     phone_number = models.CharField(max_length=20)
     country = models.ForeignKey(Country, on_delete=models.PROTECT, null=True, blank=True)
+    location = models.TextField(null=True, blank=True)
 
 class Brand(models.Model):
     name = models.CharField(max_length=100)
