@@ -12,7 +12,7 @@ class Buyer(User):
     country = models.ForeignKey(Country, on_delete=models.PROTECT, null=True, blank=True)
 
 class Brand(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=100)
     logo = models.ImageField()
 
 class Car(models.Model):
