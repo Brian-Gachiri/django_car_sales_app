@@ -25,6 +25,7 @@ class Car(models.Model):
     overview = models.TextField()
     horsepower = models.CharField(max_length=100)
     price = models.FloatField()
+    image = models.ImageField()
     model = models.CharField(max_length=100)
     fuel = models.CharField(max_length=100)
     quantity = models.IntegerField(default=1)
@@ -32,5 +33,9 @@ class Car(models.Model):
     transmission = models.IntegerField(choices=TRANSMISSIONS, default=AUTOMATIC)
     year_of_manufacture = models.IntegerField()
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT, null=True, blank=True)
+
+class CarImage(models.Model):
+    image = models.ImageField()
+    car = models.ForeignKey(Car, on_delete=models.ForeignKey)
 
 ##TODO: Favorites (Wishlists), Bids, Orders
