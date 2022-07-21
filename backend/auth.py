@@ -55,14 +55,14 @@ def registerUser(request):
     phonenumber = request.data.get("number")
     password = request.data.get("password")
     email = request.data.get("email")
-    id_number = request.data.get("id_number")
     name = request.data.get("name")
+    location = request.data.get("location", "")
 
     if name is None or password is None:
         return Response({'error': 'Please provide both username and password'}, status=status.HTTP_403_FORBIDDEN)
 
     # user = Buyer.objects.filter(username = name).first()
-    error = validate_fields(name, email, id_number, phonenumber)
+    error = validate_fields(name, email, phonenumber)
 
     if error:
         return Response({'error': error}, status=status.HTTP_403_FORBIDDEN)
@@ -71,10 +71,8 @@ def registerUser(request):
     user.username = name
     user.phone_number = phonenumber
     user.email = email
-    user.address = ""
-    user.id_number = id_number
+    user.location = location
     user.set_password(password)
-    user.loan_limit = 1000.0  # Set the default loan limit here
     user.is_staff = False
     user.save()
 
@@ -87,7 +85,7 @@ def registerUser(request):
         'first_name': user.first_name,
         'last_name': user.last_name,
         'phone_number': phonenumber,
-        'address': user.address
+        'location': user.location
     }
 
     return Response(context,
@@ -100,18 +98,15 @@ def getToken(request):
     return r_token.split(' ', 1)[1]
 
 
-def validate_fields(name, email, id_number, phone_number):
+def validate_fields(name, email,phone_number):
     name = Buyer.objects.filter(username=name).first()
     email = Buyer.objects.filter(email=email).first()
-    id_number = Buyer.objects.filter(id_number=id_number).first()
     phone_number = Buyer.objects.filter(phone_number=phone_number).first()
 
     if email:
         return 'This email is already taken'
     elif name:
         return 'Username already exists'
-    elif id_number:
-        return 'This ID Number has already been registered'
     elif phone_number:
         return 'This phone number is already taken'
     else:
