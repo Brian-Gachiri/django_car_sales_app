@@ -48,11 +48,27 @@ class Car(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def car_transmission(self):
+
+        if self.transmission == self.MANUAL:
+            return "Manual"
+        else:
+            return "Automatic"
+
 class CarImage(models.Model):
     image = models.ImageField()
     car = models.ForeignKey(Car, on_delete=models.ForeignKey)
 
     def __str__(self):
         return self.car
+
+
+class Favorites(models.Model):
+    buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE, null=False, blank=False)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE, null=False, blank=False)
+
+    def __str__(self):
+        return self.car.name
 
 ##TODO: Favorites (Wishlists), Bids, Orders

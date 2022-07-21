@@ -16,12 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .views import *
-
+from .auth import loginUser, registerUser
 
 urlpatterns = [
     path("", home, name="home"),
     path("cars", CarView.as_view(), name="cars"),
     path("brands", BrandView.as_view(), name="brands"),
+    path("login", loginUser, name="login"),
+    path("register", registerUser, name="register"),
+    path("favorites", getFavorites, name="favorites"),
+    path("toggle/favorite", addToFavorites, name="toggle.favorites")
 
 ]
 
