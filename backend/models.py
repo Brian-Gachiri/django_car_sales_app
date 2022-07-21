@@ -61,7 +61,7 @@ class CarImage(models.Model):
     car = models.ForeignKey(Car, on_delete=models.ForeignKey)
 
     def __str__(self):
-        return self.car
+        return self.car.name
 
 
 class Favorites(models.Model):
