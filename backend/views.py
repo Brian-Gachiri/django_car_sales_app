@@ -34,7 +34,7 @@ def getFavorites(request):
     token = Token.objects.filter(key=request_token).first()
     user = Buyer.objects.filter(pk=token.user_id).first()
 
-    favorites = Favorites.objects.filter(Buyer=user).prefetch_related('car').only('id')
+    favorites = Favorites.objects.filter(buyer=user).prefetch_related('car').only('id')
 
     for favorite in favorites:
         favorite.car_name = favorite.car.name
@@ -55,7 +55,7 @@ def addToFavorites(request, id):
     user = Buyer.objects.filter(pk=token.user_id).first()
     car = Car.objects.filter(pk=id).first()
 
-    isFavorited = Favorites.objects.filter(Buyer=user, car=car).first()
+    isFavorited = Favorites.objects.filter(buyer=user, car=car).first()
 
     if isFavorited:
 
@@ -68,7 +68,7 @@ def addToFavorites(request, id):
 
     else:
         Favorites.objects.create(
-            Buyer=user,
+            buyer=user,
             car=car
         )
         context = {
