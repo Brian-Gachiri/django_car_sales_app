@@ -17,10 +17,10 @@ from backend.models import Buyer
 @api_view(["POST"])
 @permission_classes((AllowAny,))
 def loginUser(request):
-    phonenumber = request.data.get("username")
+    username = request.data.get("username")
     password = request.data.get("password")
 
-    buyer = Buyer.objects.filter(phone_number=phonenumber).first()
+    buyer = Buyer.objects.filter(username=username).first()
     username = buyer.username
     if username is None or password is None:
         return Response({'error': 'Please provide both username and password'}, status=status.HTTP_400_BAD_REQUEST)
@@ -40,8 +40,8 @@ def loginUser(request):
         'email': user.email,
         'first_name': user.first_name,
         'last_name': user.last_name,
-        'phone_number': phonenumber,
-        'address': buyer.address,
+        'phone_number': user.phone_number,
+        'address': buyer.location,
         'status': buyer.status
     }
     return Response(context,
