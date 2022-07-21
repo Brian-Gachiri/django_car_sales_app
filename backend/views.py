@@ -39,7 +39,7 @@ def getFavorites(request):
     for favorite in favorites:
         favorite.car_name = favorite.car.name
         favorite.car_id = favorite.car_id
-        favorite.image = favorite.car.logo.url
+        favorite.image = favorite.car.image.url
 
     data = CustomFavoriteSerializer(favorites, many=True)
 
