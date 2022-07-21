@@ -42,7 +42,6 @@ def loginUser(request):
         'last_name': user.last_name,
         'phone_number': buyer.phone_number,
         'address': buyer.location,
-        'status': buyer.status
     }
     return Response(context,
                     status=status.HTTP_200_OK)
