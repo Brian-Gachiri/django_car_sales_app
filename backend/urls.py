@@ -25,7 +25,7 @@ urlpatterns = [
     path("login", loginUser, name="login"),
     path("register", registerUser, name="register"),
     path("favorites", getFavorites, name="favorites"),
-    path("toggle/favorite/{id}", addToFavorites, name="toggle.favorites")
+    path("toggle/favorite/<id>", addToFavorites, name="toggle.favorites")
 
 ]
 
